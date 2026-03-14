@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acabados Martínez</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{background:#141414;color:#F7F2E8;font-family:system-ui,-apple-system,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+
+/* HERO */
+#hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 20px;background:radial-gradient(ellipse 80% 40% at 50% 0%,rgba(232,114,12,.15),transparent 70%)}
+.badge{display:inline-block;background:rgba(232,114,12,.1);border:1px solid rgba(232,114,12,.35);border-radius:20px;padding:6px 16px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#E8720C;margin-bottom:22px}
+.big{font-weight:900;font-size:clamp(54px,13vw,90px);line-height:.9;letter-spacing:1px;margin-bottom:14px}
+.big span{color:#E8720C}
+.sub{font-size:15px;color:#999;margin-bottom:14px;font-style:italic}
+.desc{max-width:380px;font-size:14px;color:#777;line-height:1.7;margin-bottom:32px}
+.go{background:#E8720C;color:#fff;border:none;border-radius:50px;padding:15px 40px;font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;box-shadow:0 4px 24px rgba(232,114,12,.35)}
+.go:active{transform:scale(.97)}
+.stats{display:flex;gap:20px;margin-top:36px;align-items:center}
+.stat{display:flex;flex-direction:column;align-items:center;gap:2px}
+.snum{font-weight:900;font-size:26px;color:#E8720C}
+.slbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#666}
+.sdiv{width:1px;height:36px;background:#333}
+
+/* CHAT */
+#chat{flex:1;display:none;flex-direction:column}
+.cheader{background:#1e1e1e;border-bottom:1px solid #222;padding:12px 16px;display:flex;align-items:center;gap:12px}
+.cav{width:38px;height:38px;background:#E8720C;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;flex-shrink:0}
+.cname{font-weight:600;font-size:14px}
+.cst{font-size:11px;color:#4ade80;display:flex;align-items:center;gap:5px}
+.cst::before{content:'';width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block}
+.msgs{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:12px}
+.msg{display:flex;gap:8px;animation:pop .3s ease}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.msg.u{flex-direction:row-reverse}
+.mav{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;align-self:flex-end;flex-shrink:0}
+.msg.b .mav{background:#E8720C;color:#fff}
+.msg.u .mav{background:#333}
+.mbub{max-width:78%;padding:10px 14px;border-radius:14px;font-size:14px;line-height:1.6}
+.msg.b .mbub{background:#1e1e1e;border:1px solid #2a2a2a;border-bottom-left-radius:4px}
+.msg.u .mbub{background:#E8720C;color:#fff;border-bottom-right-radius:4px}
+.typing{display:flex;gap:8px;align-items:flex-end;animation:pop .3s ease}
+.tdots{background:#1e1e1e;border:1px solid #2a2a2a;border-radius:14px;border-bottom-left-radius:4px;padding:13px 16px;display:flex;gap:5px}
+.tdots span{width:7px;height:7px;background:#666;border-radius:50%;animation:bn 1.2s infinite}
+.tdots span:nth-child(2){animation-delay:.2s}
+.tdots span:nth-child(3){animation-delay:.4s}
+@keyframes bn{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+.opts{display:flex;flex-wrap:wrap;gap:8px;padding:4px 14px 8px}
+.opt{background:#2a2a2a;border:1px solid #333;color:#F7F2E8;font-family:inherit;font-size:13px;padding:9px 16px;border-radius:20px;cursor:pointer;transition:all .15s}
+.opt:active{border-color:#E8720C;color:#E8720C}
+.iarea{padding:12px 14px;border-top:1px solid #222;background:#1e1e1e}
+.irow{display:flex;gap:8px}
+.inp{flex:1;background:#2a2a2a;border:1px solid #333;border-radius:12px;color:#F7F2E8;font-family:inherit;font-size:15px;padding:11px 14px;outline:none}
+.inp:focus{border-color:#E8720C}
+.inp::placeholder{color:#555}
+.sbtn{width:44px;height:44px;background:#E8720C;border:none;border-radius:12px;cursor:pointer;font-size:18px;color:#fff}
+.sbtn:active{transform:scale(.95)}
+
+/* SUMMARY */
+#sum{flex:1;display:none;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px}
+.scard{background:#1e1e1e;border:1px solid #2a2a2a;border-radius:20px;padding:28px;max-width:480px;width:100%}
+.stop{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.sico{width:50px;height:50px;background:rgba(232,114,12,.15);border:1px solid rgba(232,114,12,.3);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.stit{font-weight:900;font-size:24px}
+.ssub{font-size:13px;color:#888;margin-top:2px}
+.sdivider{height:1px;background:#2a2a2a;margin:18px 0}
+.ssec{margin-bottom:14px}
+.slbl{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#E8720C;margin-bottom:5px}
+.sval{font-size:14px;background:#2a2a2a;padding:10px 14px;border-radius:10px;white-space:pre-wrap;line-height:1.5}
+.wabtn{width:100%;background:#25D366;color:#fff;border:none;border-radius:12px;padding:15px;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;font-family:inherit}
+.wabtn:active{background:#1ebe5a}
+.rbtn{width:100%;background:none;border:1px solid #333;color:#888;font-family:inherit;font-size:13px;padding:12px;border-radius:12px;cursor:pointer;margin-top:10px}
+.msgs::-webkit-scrollbar{width:3px}
+.msgs::-webkit-scrollbar-thumb{background:#333;border-radius:2px}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="badge">● Acabados Martínez · Puerto Vallarta</div>
+  <div class="big">DISEÑA<br><span>TU ESPACIO</span></div>
+  <p class="sub">Cuéntanos tu idea, nosotros la hacemos realidad</p>
+  <p class="desc">Responde unas preguntas rápidas. Nuestra IA diseña tu espacio ideal y te enviamos una cotización personalizada.</p>
+  <button class="go" onclick="startChat()">COMENZAR AHORA →</button>
+  <div class="stats">
+    <div class="stat"><span class="snum">10+</span><span class="slbl">Años exp.</span></div>
+    <div class="sdiv"></div>
+    <div class="stat"><span class="snum">PVR</span><span class="slbl">Zona</span></div>
+    <div class="sdiv"></div>
+    <div class="stat"><span class="snum">100%</span><span class="slbl">Garantizado</span></div>
+  </div>
+</div>
+
+<!-- CHAT -->
+<div id="chat">
+  <div class="cheader">
+    <div class="cav">AM</div>
+    <div>
+      <div class="cname">Acabados Martínez</div>
+      <div class="cst">En línea · Asistente IA</div>
+    </div>
+  </div>
+  <div class="msgs" id="msgs"></div>
+  <div class="opts" id="opts"></div>
+  <div class="iarea">
+    <div class="irow">
+      <input class="inp" id="inp" placeholder="Escribe aquí..." onkeydown="if(event.key==='Enter')enviar()">
+      <button class="sbtn" onclick="enviar()">→</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUMMARY -->
+<div id="sum">
+  <div class="scard">
+    <div class="stop">
+      <div class="sico">🎨</div>
+      <div><div class="stit">¡LISTO!</div><div class="ssub">Tu proyecto ha sido registrado</div></div>
+    </div>
+    <div class="sdivider"></div>
+    <div class="ssec"><div class="slbl">Cliente</div><div class="sval" id="rNombre"></div></div>
+    <div class="ssec"><div class="slbl">Teléfono</div><div class="sval" id="rTel"></div></div>
+    <div class="ssec"><div class="slbl">Proyecto</div><div class="sval" id="rProyecto"></div></div>
+    <div class="ssec"><div class="slbl">Presupuesto</div><div class="sval" id="rPres"></div></div>
+    <div class="sdivider"></div>
+    <p style="font-size:13px;color:#aaa;line-height:1.7;text-align:center">Toca el botón para enviar tu proyecto a <strong style="color:#F7F2E8">Acabados Martínez</strong> por WhatsApp.</p>
+    <button class="wabtn" onclick="sendWA()">💬 Enviar por WhatsApp</button>
+    <button class="rbtn" onclick="reiniciar()">← Empezar de nuevo</button>
+  </div>
+</div>
+
+<script>
+const TEL = '3221473573';
+let paso = '', ud = {nombre:'',tel:'',espacio:'',estilo:'',detalles:'',pres:''};
+let started = false;
+
+function show(id){
+  ['hero','chat','sum'].forEach(s=>{
+    const el = document.getElementById(s);
+    el.style.display = 'none';
+  });
+  const t = document.getElementById(id);
+  t.style.display = 'flex';
+  t.style.flexDirection = 'column';
+}
+
+function time(){ return new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'}); }
+
+function addBot(txt){
+  const c = document.getElementById('msgs');
+  const d = document.createElement('div');
+  d.className = 'msg b';
+  d.innerHTML = `<div class="mav">AM</div><div class="mbub">${txt}</div>`;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function addUser(txt){
+  const c = document.getElementById('msgs');
+  const d = document.createElement('div');
+  d.className = 'msg u';
+  d.innerHTML = `<div class="mbub">${txt}</div><div class="mav">👤</div>`;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function showTyping(){
+  const c = document.getElementById('msgs');
+  const d = document.createElement('div');
+  d.className = 'typing'; d.id = 'typ';
+  d.innerHTML = `<div class="mav" style="width:30px;height:30px;border-radius:8px;background:#E8720C;color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;align-self:flex-end;flex-shrink:0">AM</div><div class="tdots"><span></span><span></span><span></span></div>`;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+}
+
+function stopTyping(){ const e = document.getElementById('typ'); if(e) e.remove(); }
+
+function botSay(txt, delay=800){
+  return new Promise(r=>{
+    showTyping();
+    setTimeout(()=>{ stopTyping(); addBot(txt); r(); }, delay);
+  });
+}
+
+function setOpts(arr){
+  const row = document.getElementById('opts');
+  row.innerHTML = '';
+  arr.forEach(o=>{
+    const b = document.createElement('button');
+    b.className = 'opt'; b.textContent = o;
+    b.onclick = ()=>{ clearOpts(); pickOpt(o); };
+    row.appendChild(b);
+  });
+}
+function clearOpts(){ document.getElementById('opts').innerHTML=''; }
+
+async function aiCall(system){
+  try{
+    const r = await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system,
+        messages:[{role:'user',content:'Genera la respuesta'}]
+      })
+    });
+    const d = await r.json();
+    return d.content?.[0]?.text || '';
+  }catch(e){ return ''; }
+}
+
+// ── FLUJO ──
+async function startChat(){
+  if(started) return;
+  started = true;
+  show('chat');
+  await botSay('¡Hola! 👋 Soy el asistente de <strong>Acabados Martínez</strong>. Voy a ayudarte a planear tu proyecto.', 900);
+  await botSay('¿Cómo te llamas? 😊', 600);
+  paso = 'nombre';
+}
+
+async function goTel(){
+  await botSay(`¡Qué gusto, <strong>${ud.nombre}</strong>! 🙌<br>¿Cuál es tu número de WhatsApp para enviarte la cotización?`, 700);
+  paso = 'tel';
+}
+
+async function goEspacio(){
+  await botSay('¿En qué espacio quieres hacer el trabajo?', 700);
+  setOpts(['🛋️ Sala','🍳 Cocina','🛏️ Recámara','🏢 Oficina / Local','🚿 Baño','🏊 Exterior','✏️ Otro']);
+  paso = 'espacio';
+}
+
+async function goEstilo(){
+  showTyping();
+  const ai = await aiCall(`Eres asistente de Acabados Martínez (tablaroca y plafones, Puerto Vallarta). El cliente quiere trabajar en: ${ud.espacio}. Haz UNA pregunta muy corta y amigable sobre el estilo visual que busca. Máximo 1 línea. Solo español.`);
+  stopTyping();
+  addBot(ai || '¿Qué estilo te gusta? ¿Moderno, rústico o minimalista?');
+  setOpts(['✨ Moderno','🪵 Rústico / Natural','⬜ Minimalista','🎨 Clásico']);
+  paso = 'estilo';
+}
+
+async function goDetalles(){
+  showTyping();
+  const ai = await aiCall(`Eres asistente de Acabados Martínez. El cliente quiere: espacio="${ud.espacio}", estilo="${ud.estilo}". Haz UNA pregunta abierta y breve para entender mejor el proyecto (medidas, problema a resolver, etc). Máximo 1 línea. Solo español.`);
+  stopTyping();
+  addBot(ai || '¿Puedes darme más detalles? Por ejemplo las medidas del espacio o qué problema quieres resolver.');
+  paso = 'detalles';
+}
+
+async function goPresupuesto(){
+  await botSay('¿Tienes un presupuesto aproximado? 💰', 700);
+  setOpts(['Menos de $5,000','$5,000 – $15,000','$15,000 – $30,000','Más de $30,000','No sé aún']);
+  paso = 'pres';
+}
+
+async function goFinal(){
+  await botSay('¡Gracias por la info! 🙏 Analizando tu proyecto...', 500);
+  showTyping();
+  const ai = await aiCall(`Eres experto en tablaroca y plafones de Acabados Martínez en Puerto Vallarta. Genera: 1) Una recomendación de diseño breve y personalizada (2-3 oraciones, menciona materiales concretos). 2) Mensaje cálido diciendo que Johan o Sergio los contactarán pronto por WhatsApp con la cotización. Datos: nombre="${ud.nombre}", espacio="${ud.espacio}", estilo="${ud.estilo}", detalles="${ud.detalles}", presupuesto="${ud.pres}". Solo español. Máximo 5 líneas.`);
+  stopTyping();
+  addBot(ai || `¡Gracias ${ud.nombre}! Nuestro equipo revisará tu proyecto y te contactaremos pronto por WhatsApp con tu cotización personalizada. 🙌`);
+  setTimeout(()=>{
+    document.getElementById('rNombre').textContent = ud.nombre;
+    document.getElementById('rTel').textContent = ud.tel;
+    document.getElementById('rProyecto').textContent = `${ud.espacio} · ${ud.estilo}${ud.detalles?'\n'+ud.detalles:''}`;
+    document.getElementById('rPres').textContent = ud.pres;
+    show('sum');
+  }, 1600);
+}
+
+// ── INPUT ──
+function enviar(){
+  const el = document.getElementById('inp');
+  const txt = el.value.trim(); if(!txt) return;
+  el.value = ''; addUser(txt); clearOpts();
+  if(paso==='nombre'){ ud.nombre=txt; goTel(); }
+  else if(paso==='tel'){ ud.tel=txt; goEspacio(); }
+  else if(paso==='detalles'){ ud.detalles=txt; goPresupuesto(); }
+}
+
+function pickOpt(o){
+  addUser(o);
+  if(paso==='espacio'){ ud.espacio=o; goEstilo(); }
+  else if(paso==='estilo'){ ud.estilo=o; goDetalles(); }
+  else if(paso==='pres'){ ud.pres=o; goFinal(); }
+}
+
+// ── WHATSAPP ──
+function sendWA(){
+  const msg = `¡Hola Acabados Martínez! 👋\n\nSoy *${ud.nombre}* y usé su asistente de diseño.\n\n📋 *Mi proyecto:*\n• Espacio: ${ud.espacio}\n• Estilo: ${ud.estilo}\n• Detalles: ${ud.detalles||'Sin detalles'}\n• Presupuesto: ${ud.pres}\n\n📞 Mi número: ${ud.tel}\n\n¡Espero su cotización! 🙌`;
+  window.open(`https://wa.me/${TEL}?text=${encodeURIComponent(msg)}`,'_blank');
+}
+
+function reiniciar(){
+  ud={nombre:'',tel:'',espacio:'',estilo:'',detalles:'',pres:''};
+  paso=''; started=false;
+  document.getElementById('msgs').innerHTML='';
+  document.getElementById('opts').innerHTML='';
+  show('hero');
+}
+
+show('hero');
+</script>
+</body>
+</html>
